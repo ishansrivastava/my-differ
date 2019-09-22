@@ -17,54 +17,42 @@ public class filediff {
 		List<Integer> sourcecolorindexes = new ArrayList<Integer>();
 		List<String> sourcescreenindices = new ArrayList<String>();
 		List<String> targetscreenindices = new ArrayList<String>();
-		try {
-			/*
-			 * for(int i=0;i<sourcelist.size();i++) {
-			 * SourceFileArea.append(sourcelist.get(i)+"\n");
-			 * SourceFileArea.setLineWrap(true); SourceFileArea.setWrapStyleWord(true); }
-			 */
-			for (int i = 1; i < commonsourceindexes.size(); i++) {
-				for (int j = commonsourceindexes.get(i - 1) + 1; j < commonsourceindexes.get(i); j++) {
-					SourceFileArea.append(sourcelist.get(j) + "\n");
-					sourcecolorindexes.add(count);
-					sourcescreenindices.add(sourcelist.get(j));
-					count++;
-				}
-				if ((commonsourceindexes.get(i) - commonsourceindexes.get(i - 1)) < (commontargetindexes.get(i)
-						- commontargetindexes.get(i - 1))) {
-					int diff = ((commontargetindexes.get(i) - commontargetindexes.get(i - 1)) - 1)
-							- (commonsourceindexes.get(i) - commonsourceindexes.get(i - 1) - 1);
-					for (int k = 1; k <= diff; k++) {
-						SourceFileArea.append(
-								"-----------------------------------------------------------------------------------------------"
-										+ "\n");
-						sourcescreenindices.add(
-								"-----------------------------------------------------------------------------------------------");
-						count++;
-					}
-
-				}
-				SourceFileArea.append((sourcelist.get(commonsourceindexes.get(i))) + "\n");
-				sourcescreenindices.add(sourcelist.get(commonsourceindexes.get(i)));
-				count++;
-			}
-
-			for (int j = commonsourceindexes.get(commonsourceindexes.size() - 1) + 1; j < sourcelist.size(); j++) {
+		/*
+		 * for(int i=0;i<sourcelist.size();i++) {
+		 * SourceFileArea.append(sourcelist.get(i)+"\n");
+		 * SourceFileArea.setLineWrap(true); SourceFileArea.setWrapStyleWord(true); }
+		 */
+		for (int i = 1; i < commonsourceindexes.size(); i++) {
+			for (int j = commonsourceindexes.get(i - 1) + 1; j < commonsourceindexes.get(i); j++) {
 				SourceFileArea.append(sourcelist.get(j) + "\n");
 				sourcecolorindexes.add(count);
+				sourcescreenindices.add(sourcelist.get(j));
 				count++;
 			}
-
-			for (int i = 0; i < sourcecolorindexes.size(); i++) {
-				int startindex = SourceFileArea.getLineStartOffset(sourcecolorindexes.get(i));
-				int endindex = SourceFileArea.getLineEndOffset(sourcecolorindexes.get(i));
-				SourceFileArea.getHighlighter().addHighlight(startindex, endindex,
-						new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+			if ((commonsourceindexes.get(i) - commonsourceindexes.get(i - 1)) < (commontargetindexes.get(i)
+					- commontargetindexes.get(i - 1))) {
+				int diff = ((commontargetindexes.get(i) - commontargetindexes.get(i - 1)) - 1)
+						- (commonsourceindexes.get(i) - commonsourceindexes.get(i - 1) - 1);
+				for (int k = 1; k <= diff; k++) {
+					SourceFileArea.append(
+							"-----------------------------------------------------------------------------------------------"
+									+ "\n");
+					sourcescreenindices.add(
+							"-----------------------------------------------------------------------------------------------");
+					count++;
+				}
 
 			}
-		} catch (BadLocationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			SourceFileArea.append((sourcelist.get(commonsourceindexes.get(i))) + "\n");
+			sourcescreenindices.add(sourcelist.get(commonsourceindexes.get(i)));
+			count++;
+		}
+
+		for (int j = commonsourceindexes.get(commonsourceindexes.size() - 1) + 1; j < sourcelist.size(); j++) {
+			SourceFileArea.append(sourcelist.get(j) + "\n");
+			sourcecolorindexes.add(count);
+			sourcescreenindices.add(sourcelist.get(j));
+			count++;
 		}
 
 		JLabel SourceFileLabel = new JLabel("Source File");
@@ -77,112 +65,72 @@ public class filediff {
 		List<Integer> targetcolorindexes = new ArrayList<Integer>();
 		count = 0;
 		JTextArea TargetFileArea = new JTextArea(20, 20);
-		try {
-			for (int i = 1; i < commontargetindexes.size(); i++) {
-				for (int j = commontargetindexes.get(i - 1) + 1; j < commontargetindexes.get(i); j++) {
-					TargetFileArea.append(targetlist.get(j) + "\n");
-					targetcolorindexes.add(count);
-					targetscreenindices.add(targetlist.get(j));
-					count++;
-				}
-				if ((commonsourceindexes.get(i) - commonsourceindexes.get(i - 1)) > (commontargetindexes.get(i)
-						- commontargetindexes.get(i - 1))) {
-					int diff = ((commonsourceindexes.get(i) - commonsourceindexes.get(i - 1)) - 1)
-							- (commontargetindexes.get(i) - commontargetindexes.get(i - 1) - 1);
-					for (int k = 1; k <= diff; k++) {
-						TargetFileArea.append(
-								"-----------------------------------------------------------------------------------------------"
-										+ "\n");
-						targetscreenindices.add(
-								"-----------------------------------------------------------------------------------------------");
-						count++;
-					}
 
-				}
-				TargetFileArea.append((targetlist.get(commontargetindexes.get(i))) + "\n");
-				targetscreenindices.add(targetlist.get(commontargetindexes.get(i)));
-
-				count++;
-			}
-
-			for (int j = commontargetindexes.get(commontargetindexes.size() - 1) + 1; j < targetlist.size(); j++) {
+		for (int i = 1; i < commontargetindexes.size(); i++) {
+			for (int j = commontargetindexes.get(i - 1) + 1; j < commontargetindexes.get(i); j++) {
 				TargetFileArea.append(targetlist.get(j) + "\n");
 				targetcolorindexes.add(count);
+				targetscreenindices.add(targetlist.get(j));
 				count++;
 			}
-			/*
-			 * for (int i = 0; i < sourcescreenindices.size(); i++) { int
-			 * min_length=Math.min(sourcescreenindices.get(i).length(),targetscreenindices.
-			 * get(i).length()); double matching_count = 0.0;
-			 * System.out.println(sourcescreenindices.get(i)); for (int j = 0; j <
-			 * min_length; j++) { if (sourcescreenindices.get(i).charAt(j) ==
-			 * targetscreenindices.get(i).charAt(j)) { ++matching_count;
-			 * 
-			 * } }
-			 * 
-			 * System.out.println("matching_count:"+(matching_count/(sourcescreenindices.get
-			 * (i).length())));
-			 * if((matching_count/(sourcescreenindices.get(i).length()))>=0.6 &&
-			 * (matching_count/(sourcescreenindices.get(i).length()))<1) {
-			 * 
-			 * int startindex = TargetFileArea.getLineStartOffset(i); int endindex =
-			 * TargetFileArea.getLineEndOffset(i);
-			 * TargetFileArea.getHighlighter().addHighlight(startindex, endindex, new
-			 * DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW)); } }
-			 */
-			int min_front = 0, min_rear = 0, source_front = 0, source_rear = 0, target_front = 0, target_rear = 0;
-			for (int i = 0; i < sourcescreenindices.size(); i++) {
-				double matching_count = 0.0;
-				source_front = 0;
-				source_rear = sourcescreenindices.get(i).length() - 1;
-				target_front = 0;
-				target_rear = targetscreenindices.get(i).length() - 1;
-				if (sourcescreenindices.get(i).length() < targetscreenindices.get(i).length()) {
-					min_front = 0;
-					min_rear = sourcescreenindices.get(i).length() - 1;
-				} else {
-					min_front = 0;
-					min_rear = targetscreenindices.get(i).length() - 1;
+			if ((commonsourceindexes.get(i) - commonsourceindexes.get(i - 1)) > (commontargetindexes.get(i)
+					- commontargetindexes.get(i - 1))) {
+				int diff = ((commonsourceindexes.get(i) - commonsourceindexes.get(i - 1)) - 1)
+						- (commontargetindexes.get(i) - commontargetindexes.get(i - 1) - 1);
+				for (int k = 1; k <= diff; k++) {
+					TargetFileArea.append(
+							"-----------------------------------------------------------------------------------------------"
+									+ "\n");
+					targetscreenindices.add(
+							"-----------------------------------------------------------------------------------------------");
+					count++;
 				}
-				while (min_front < min_rear) {
-					if ((sourcescreenindices.get(i).charAt(source_front)) == (targetscreenindices.get(i)
-							.charAt(target_front))
-							|| (sourcescreenindices.get(i).charAt(source_rear)) == (targetscreenindices.get(i)
-									.charAt(target_rear))) {
-						System.out.print("source_front:"+sourcescreenindices.get(i).charAt(source_front)+","
-								+"target_front:"+targetscreenindices.get(i)
-								.charAt(target_front)+","+"source_rear:"+sourcescreenindices.get(i).charAt(source_rear)
-								+","+"target_rear:"+targetscreenindices.get(i)
-								.charAt(target_rear));
-						System.out.println();
-						
-						++matching_count;
-						++source_front;
-						++target_front;
-						--source_rear;
-						--target_rear;
-						--min_front;
-						--min_rear;
-						//System.out.println(sourcescreenindices.get(i)+":"+sourcescreenindices.get(i).length()+","+sourcelist.get(i).length());
-						//System.out.println(targetscreenindices.get(i)+":"+targetscreenindices.get(i).length());
 
-					} else {
-						++source_front;
-						++target_front;
-						--source_rear;
-						--target_rear;
-						--min_front;
-						--min_rear;
-					}
-				}
-				if ((matching_count / (sourcescreenindices.get(i).length())) >= 0.6
-						&& (matching_count / (sourcescreenindices.get(i).length())) < 1) {
+			}
+			TargetFileArea.append((targetlist.get(commontargetindexes.get(i))) + "\n");
+			targetscreenindices.add(targetlist.get(commontargetindexes.get(i)));
+			count++;
+		}
 
-					int startindex = TargetFileArea.getLineStartOffset(i);
-					int endindex = TargetFileArea.getLineEndOffset(i);
-					TargetFileArea.getHighlighter().addHighlight(startindex, endindex,
+		for (int j = commontargetindexes.get(commontargetindexes.size() - 1) + 1; j < targetlist.size(); j++) {
+			TargetFileArea.append(targetlist.get(j) + "\n");
+			targetcolorindexes.add(count);
+			targetscreenindices.add(targetlist.get(j));
+			count++;
+		}
+
+		try {
+			int min = Math.min(sourcescreenindices.size(), targetscreenindices.size());
+			for (int i = 0; i < min; i++) {
+				String s = sourcescreenindices.get(i);
+				String t = targetscreenindices.get(i);
+				String src[] = sourcescreenindices.get(i).split(" ");
+				String tgt[] = targetscreenindices.get(i).split(" ");
+				List<String> source = Arrays.asList(src);
+				List<String> target = Arrays.asList(tgt);
+				List<String> lcs = longestcommonsubsequence(source, target, source.size(), target.size());
+				if ((double) lcs.size() / (Math.max(source.size(), target.size()))  >= 0.5
+						&& (double) lcs.size() / (Math.max(source.size(), target.size())) < 1.0) {
+
+					int startsourceindex = SourceFileArea.getLineStartOffset(i);
+					int endsourceindex = SourceFileArea.getLineEndOffset(i);
+					SourceFileArea.getHighlighter().addHighlight(startsourceindex, endsourceindex,
 							new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW));
+
+					int starttargetindex = TargetFileArea.getLineStartOffset(i);
+					int endtargetindex = TargetFileArea.getLineEndOffset(i);
+					TargetFileArea.getHighlighter().addHighlight(starttargetindex, endtargetindex,
+							new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW));
+
 				}
+			}
+
+			for (int i = 0; i < sourcecolorindexes.size(); i++) {
+				int startindex = SourceFileArea.getLineStartOffset(sourcecolorindexes.get(i));
+				int endindex = SourceFileArea.getLineEndOffset(sourcecolorindexes.get(i));
+				SourceFileArea.getHighlighter().addHighlight(startindex, endindex,
+						new DefaultHighlighter.DefaultHighlightPainter(Color.RED));
+
 			}
 
 			for (int i = 0; i < targetcolorindexes.size(); i++) {
@@ -192,18 +140,7 @@ public class filediff {
 						new DefaultHighlighter.DefaultHighlightPainter(Color.GREEN));
 
 			}
-
-			/*for (int i = 0; i < sourcescreenindices.size(); i++) {
-				System.out.println(sourcescreenindices.get(i));
-			}
-			System.out.println("#################################");
-			for (int i = 0; i < targetscreenindices.size(); i++) {
-				System.out.println(targetscreenindices.get(i));
-			}*/
-
-		}
-
-		catch (BadLocationException e) {
+		} catch (BadLocationException e) {
 			e.printStackTrace();
 
 		}
